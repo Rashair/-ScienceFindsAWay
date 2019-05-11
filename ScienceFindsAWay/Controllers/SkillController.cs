@@ -37,7 +37,7 @@ namespace ScienceFindsAWay.Controllers
                             var medium = reader.GetInt32(reader.GetOrdinal("CategoryMedium"));
                             var specific = reader.GetInt32(reader.GetOrdinal("CategorySpecific"));
                             //convert categoryid to name
-                            places.Add(new Skill(index, general, medium, specific));
+                            places.Add(new Skill(index ,general, medium, specific));
                         }
                     }
                 }
