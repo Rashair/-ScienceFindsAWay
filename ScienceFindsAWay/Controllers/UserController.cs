@@ -69,7 +69,7 @@ namespace ScienceFindsAWay.Controllers
             string sql = sb.ToString();
 
 
-            return DbQuery(sql).First();
+            return DbQuery(sql)?.First();
 
         }
 
