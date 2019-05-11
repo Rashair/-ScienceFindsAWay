@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using ScienceFindsAWay.Models;
@@ -59,24 +58,12 @@ namespace ScienceFindsAWay.Controllers
         }
 
         [HttpPost("[action]")]
-        public IActionResult LogIn([FromBody]Credentials credentials)
+        public IActionResult LogIn([FromBody]Credentials cred)
         {
-            string username = credentials.username;
-            string password = credentials.password;
-
-            string sql = $"SELECT * FROM Users WHERE Username='{username}'";
-
+            string sql = $"SELECT * FROM Users WHERE Username='{cred.username}'";
             var user = DbQuery(sql).FirstOrDefault();
-            if (user == null)
-                return null;
-            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                                                    password: password,
-                                                    salt: Convert.FromBase64String(user.PasswordSalt),
-                                                    prf: KeyDerivationPrf.HMACSHA1,
-                                                    iterationCount: 10000,
-                                                    numBytesRequested: 256 / 8));
 
-            return user.CheckPassword(hashed) ? Json(user) : null;
+            return user != null && user.CheckPassword(cred.password) ?  Json(user) : null;
         }
 
         [HttpGet("[action]")]
