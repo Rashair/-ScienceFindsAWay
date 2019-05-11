@@ -4,9 +4,9 @@ import { Container } from 'reactstrap';
 import NavMenu from './components/NavMenu';
 import Home from './components/Home';
 import Login from './components/Login';
-import AddMeetup from './components/AddMeetup';
-import Meetups from './components/Meetups';
-import UserMeetups from './components/UserMeetups';
+import AddMeeting from './components/AddMeeting';
+import Meetings from './components/Meetings';
+import UserMeetings from './components/UserMeetings';
 import PrivateRoute from './authentication/PrivateRoute';
 
 class App extends React.Component {
@@ -31,9 +31,9 @@ class App extends React.Component {
         <Container>
           <Route path="/login" render={(props) => <Login {...props} loginHandler={this.loginHandler}  />} />
           <PrivateRoute exact path="/" component={Home} />
-          <PrivateRoute path='/addmeetup' component={AddMeetup} />
-          <PrivateRoute path='/meetups' component={Meetups} />
-          <PrivateRoute path='/usermeetups' component={UserMeetups} />
+          <PrivateRoute path='/addMeeting' component={AddMeeting} />
+          <PrivateRoute path='/meetings' component={Meetings} />
+          <PrivateRoute path='/userMeetings' component={UserMeetings} />
         </Container>
       </div>
     );
