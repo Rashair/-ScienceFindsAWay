@@ -20,7 +20,6 @@ class AddMeetup extends Component {
       .then(
         (result) => {
           this.setState({
-            places: result
           });
         }
       )
@@ -31,8 +30,8 @@ class AddMeetup extends Component {
       return (
         <div>
           <h1>Create new Meetup</h1>
-           <section> {this.state.places[0]}</section>
-           <section> {this.state.user.password}</section>
+           <section> {}</section>
+           <section> {}</section>
         </div>
       );
     }

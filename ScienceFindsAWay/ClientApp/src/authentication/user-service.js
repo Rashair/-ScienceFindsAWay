@@ -12,7 +12,6 @@ function login(username, password) {
     return fetch(`/api/user/LogIn`, requestOptions)
         .then(handleResponse)
         .then(user => {
-            console.log(user);
             // login successful if there's a user in the response
             if (user) {
                 // store user details and basic auth credentials in local storage 

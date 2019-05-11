@@ -58,10 +58,6 @@ class Login extends React.Component {
         return (
             <div className="row justify-content-center">
                 <div className="col-md-6">
-                    <div className="alert alert-info">
-                        Username: test<br />
-                        Password: test
-                    </div>
                     <h2>Login</h2>
                     <form name="form" onSubmit={this.handleSubmit}>
                         <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
