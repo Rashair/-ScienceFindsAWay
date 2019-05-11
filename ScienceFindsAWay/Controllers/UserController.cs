@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using ScienceFindsAWay.Models;
@@ -37,16 +38,40 @@ namespace ScienceFindsAWay.Controllers
                             var university = reader.GetString(reader.GetOrdinal("University"));
                             var faculty = reader.GetString(reader.GetOrdinal("Faculty"));
                             var mail = reader.GetString(reader.GetOrdinal("Mail"));
+                            var username = reader.GetString(reader.GetOrdinal("Username"));
+                            var password = reader.GetString(reader.GetOrdinal("Password"));
+                            var passwordSalt = new byte[128 / 8];
+                            reader.GetBytes(reader.GetOrdinal("PasswordSalt"), 0, passwordSalt, 0, 128);
                             var id = reader.GetInt32(reader.GetOrdinal("UserID"));
 
 
-                            userList.Add(new User(name, surname, university, faculty, mail, id, null, null));
+                            userList.Add(new User(name, surname, university, faculty, mail, id, null, username, password, passwordSalt));
                         }
                     }
                 }
             }
             return userList;
 
+        }
+
+        [HttpGet("[action]")]
+        public User LogIn(string username, string password)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT * ");
+            sb.Append("FROM Users ");
+            sb.Append($"WHERE Username={username} ");
+            string sql = sb.ToString();
+
+            var user = DbQuery(sql).FirstOrDefault();
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                                                    password: password,
+                                                    salt: user._passwordSalt,
+                                                    prf: KeyDerivationPrf.HMACSHA1,
+                                                    iterationCount: 10000,
+                                                    numBytesRequested: 256 / 8));
+
+            return user.CheckPassword(hashed) ? user : null;
         }
 
         [HttpGet("[action]")]
@@ -75,7 +100,7 @@ namespace ScienceFindsAWay.Controllers
         public IEnumerable<User> GetUsersByMeetingId(int id)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT u.Name , u.Surname, u.Faculty, u.Mail, u.UserID ");
+            sb.Append("SELECT u.* ");
             sb.Append($"FROM Users u ");
             sb.Append($"JOIN MeetingUserMerge m on m.UserID = u.UserID and m.MeetingID = {id} ");
             string sql = sb.ToString();
