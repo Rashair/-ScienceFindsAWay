@@ -1,23 +1,25 @@
 import React from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import './NavMenu.css';
+import './css/NavMenu.css';
 
 export default class NavMenu extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      isOpen: false
+      isOpen: false,
     };
   }
-  toggle () {
+
+  toggle() {
     this.setState({
-      isOpen: !this.state.isOpen
+      isOpen: !this.state.isOpen,
     });
   }
-  render () {
+
+  render() {
     return (
       <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light >
@@ -32,6 +34,11 @@ export default class NavMenu extends React.Component {
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/Meetup">Meetup</NavLink>
                 </NavItem>
+                {this.props.user !== null &&
+                  <NavItem>
+                    <NavLink tag={Link} className="text-dark" to="/Login">Logout</NavLink>
+                  </NavItem>
+                }
               </ul>
             </Collapse>
           </Container>

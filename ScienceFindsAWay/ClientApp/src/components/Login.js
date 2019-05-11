@@ -6,8 +6,6 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
 
-        userService.logout();
-
         this.state = {
             username: '',
             password: '',
@@ -19,6 +17,12 @@ class Login extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    componentDidMount(){
+        userService.logout();
+        this.props.loginHandler(null);
+    }
+
 
     handleChange(e) {
         const { name, value } = e.target;
@@ -42,9 +46,11 @@ class Login extends React.Component {
                 user => {
                     const { from } = this.props.location.state || { from: { pathname: "/" } };
                     this.props.history.push(from);
+                    this.props.loginHandler(user);
                 },
-                error => this.setState({ error, loading: false })
+                error => this.setState({ error, loading: false }),
             );
+        
     }
 
     render() {
