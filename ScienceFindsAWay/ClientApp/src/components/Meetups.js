@@ -35,8 +35,8 @@ class Meetups extends Component {
               <td>Place</td>
             </tr></thead>
             <tbody>
-              {this.state.meetups.map((meetup) => {
-                return (<tr>
+              {this.state.meetups.map((meetup, i) => {
+                return (<tr key={i}>
                   <td>{meetup.name}</td>
                   <td>{meetup.date}</td>
                   <td>{meetup.place.name}</td>
