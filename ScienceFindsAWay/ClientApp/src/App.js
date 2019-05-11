@@ -33,7 +33,6 @@ class App extends React.Component {
           <PrivateRoute exact path="/" component={Home} />
           <PrivateRoute path='/addMeeting' component={AddMeeting} />
           <PrivateRoute path='/meetings' component={Meetings} />
-          <PrivateRoute path='/userMeetings' component={UserMeetings} />
         </Container>
       </div>
     );
