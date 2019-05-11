@@ -40,7 +40,7 @@ namespace ScienceFindsAWay.Controllers
                             var id = reader.GetInt32(reader.GetOrdinal("MeetingID"));
                             var name = reader.GetString(reader.GetOrdinal("Name"));
                             var date = reader.GetDateTime(reader.GetOrdinal("Date"));
-                            var place =placeControler.GetPlaceById(reader.GetInt32(reader.GetOrdinal("Place")));
+                            var place = placeControler.GetPlaceById(reader.GetInt32(reader.GetOrdinal("PlaceID")));
                             var categories = categoryControler.GetCategoriesByMeetingId(id);
                             var participants = userControler.GetUsersByMeetingId(id);
 

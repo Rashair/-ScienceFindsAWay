@@ -62,7 +62,7 @@ namespace ScienceFindsAWay.Controllers
             sb.Append("SELECT Categories.* ");
             sb.Append("FROM Categories ");
             sb.Append("JOIN MeetingCategoryMerge ON Categories.CategoryID=MeetingCategoryMerge.CategoryID ");
-            sb.Append("WHERE CategoryId=id ");
+            sb.Append($"WHERE Categories.CategoryId={id} ");
             string sql = sb.ToString();
 
             return DbQuery(sql);
