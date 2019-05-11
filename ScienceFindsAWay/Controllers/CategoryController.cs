@@ -43,8 +43,7 @@ namespace ScienceFindsAWay.Controllers
             return categories;
         }
 
-
-
+        [HttpGet("[action]")]
         public string GetCategoryName(int id)
         {
             StringBuilder sb = new StringBuilder();
@@ -56,6 +55,7 @@ namespace ScienceFindsAWay.Controllers
             return DbQuery(sql).FirstOrDefault().Name;
         }
 
+        [HttpGet("[action]")]
         public IEnumerable<Category> GetCategoriesByMeetingId(int id)
         {
             StringBuilder sb = new StringBuilder();
