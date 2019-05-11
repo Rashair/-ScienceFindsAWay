@@ -63,5 +63,18 @@ namespace ScienceFindsAWay.Controllers
 
             return DbQuery(sql);
         }
+
+        [HttpGet("[action]")]
+        public IEnumerable<Meeting> GetAllUserMeetings(int id)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT * ");
+            sb.Append("FROM Meetings m ");
+            sb.Append("JOIN  MeetingUserMerge mum ON m.MeetingID=mum.MeetingID ");
+            sb.Append($"WHERE mum.UserID={id}");
+            string sql = sb.ToString();
+
+            return DbQuery(sql);
+        }
     }
 }

@@ -68,7 +68,7 @@ namespace ScienceFindsAWay.Controllers
             sb.Append($"FROM Users where UserID={id} ");
             string sql = sb.ToString();
 
-            return DbQuery(sql)?.First();
+            return DbQuery(sql)?.FirstOrDefault();
         }
 
         [HttpGet("[action]")]
