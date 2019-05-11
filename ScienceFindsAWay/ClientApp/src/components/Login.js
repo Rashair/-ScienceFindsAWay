@@ -48,7 +48,7 @@ class Login extends React.Component {
                     this.props.history.push(from);
                     this.props.loginHandler(user);
                 },
-                error => this.setState({ error, loading: false }),
+                err => this.setState({ error: "User not found", loading: false }),
             );
         
     }

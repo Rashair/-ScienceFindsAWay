@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Meetups.css'
 
-class Meetups extends Component {
+class UserMeetups extends Component {
     constructor(props) {
       super(props);
   
@@ -27,7 +27,7 @@ class Meetups extends Component {
     render() {
       return (
         <div>
-          <h1>Meetup list</h1>
+          <h1>Meetup list TODO</h1>
           <table id="meetups">
             <thead><tr>
               <td>Name</td>
@@ -35,8 +35,8 @@ class Meetups extends Component {
               <td>Place</td>
             </tr></thead>
             <tbody>
-              {this.state.meetups.map((meetup, i) => {
-                return (<tr key={i}>
+              {this.state.meetups.map((meetup) => {
+                return (<tr>
                   <td>{meetup.name}</td>
                   <td>{meetup.date}</td>
                   <td>{meetup.place.name}</td>
@@ -49,5 +49,5 @@ class Meetups extends Component {
     }
   }
   
-  export default(Meetups);
+  export default(UserMeetups);
   
