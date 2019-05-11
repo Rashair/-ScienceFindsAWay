@@ -21,13 +21,6 @@ class Meetups extends Component {
           });
         }
       )
-
-            /*
-        this.setState({
-            meetups: [{name: "Lol", date: "never", place: "311", categories: [], participants: []},
-            {name: "C", date: "d", place: "aisodjdijadoiasijd", categories: [], participants: []}]
-        })
-        */
     }
   
   
@@ -46,7 +39,7 @@ class Meetups extends Component {
                 return (<tr>
                   <td>{meetup.name}</td>
                   <td>{meetup.date}</td>
-                  <td>{meetup.place}</td>
+                  <td>{meetup.place.name}</td>
                 </tr>);
               })}
             </tbody>
