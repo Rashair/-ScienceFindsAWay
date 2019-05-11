@@ -16,7 +16,7 @@ namespace ScienceFindsAWay.Models
         public int UserID { get; }
         public Skill[] Skills { get; protected set; }
         private string _password;
-        internal byte[] _passwordSalt = new byte[128/8];
+        public byte[] _passwordSalt = new byte[128/8];
         
 
         public User(string n, string s, string u, string f,string m, int uid, Skill[] sk, string username, string password, byte[] passwordSalt)

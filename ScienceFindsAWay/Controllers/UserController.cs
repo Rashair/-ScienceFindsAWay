@@ -54,14 +54,18 @@ namespace ScienceFindsAWay.Controllers
 
         }
 
-        [HttpGet("[action]")]
-        public User LogIn(string username, string password)
+        public class Credentials {
+            public string username {get; set;}
+            public string password {get; set;}
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult LogIn([FromBody]Credentials credentials)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * ");
-            sb.Append("FROM Users ");
-            sb.Append($"WHERE Username={username} ");
-            string sql = sb.ToString();
+            string username = credentials.username;
+            string password = credentials.password;
+
+            string sql = $"SELECT * FROM Users WHERE Username={username}";
 
             var user = DbQuery(sql).FirstOrDefault();
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
@@ -71,7 +75,7 @@ namespace ScienceFindsAWay.Controllers
                                                     iterationCount: 10000,
                                                     numBytesRequested: 256 / 8));
 
-            return user.CheckPassword(hashed) ? user : null;
+            return user.CheckPassword(hashed) ? Json(user) : Json("test response");
         }
 
         [HttpGet("[action]")]
