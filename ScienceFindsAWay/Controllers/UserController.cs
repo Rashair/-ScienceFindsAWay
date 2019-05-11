@@ -68,7 +68,7 @@ namespace ScienceFindsAWay.Controllers
 
             var user = DbQuery(sql).FirstOrDefault();
             if (user == null)
-                return Json("test response");
+                return null;
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                                                     password: password,
                                                     salt: Convert.FromBase64String(user.PasswordSalt),
@@ -76,7 +76,7 @@ namespace ScienceFindsAWay.Controllers
                                                     iterationCount: 10000,
                                                     numBytesRequested: 256 / 8));
 
-            return user.CheckPassword(hashed) ? Json(user) : Json("test response");
+            return user.CheckPassword(hashed) ? Json(user) : null;
         }
 
         [HttpGet("[action]")]
