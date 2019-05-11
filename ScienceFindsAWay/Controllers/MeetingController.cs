@@ -26,6 +26,7 @@ namespace ScienceFindsAWay.Controllers
         {
             var placeControler = new PlaceController(this.Configuration);
             var categoryControler = new CategoryController(this.Configuration);
+            var userControler = new UserController(this.Configuration);
             var userList = new List<Meeting>();
             using (SqlConnection connection = new SqlConnection(Configuration.GetConnectionString("SFAWHackBase")))
             {
@@ -41,9 +42,9 @@ namespace ScienceFindsAWay.Controllers
                             var date = reader.GetDateTime(reader.GetOrdinal("Date"));
                             var place =placeControler.GetPlaceById(reader.GetInt32(reader.GetOrdinal("Place")));
                             var categories = categoryControler.GetCategoriesByMeetingId(id);
-                            var participants = UserControler.GetUsersByMeetingId(id);
+                            var participants = userControler.GetUsersByMeetingId(id);
 
-                            userList.Add(new Meeting(id,name,date,place,categories,participants));
+                            userList.Add(new Meeting(id,name,date,place,categories,participants.ToList()));
                         }
                     }
                 }
@@ -53,7 +54,7 @@ namespace ScienceFindsAWay.Controllers
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<Meeting> GetAllUsers()
+        public IEnumerable<Meeting> GetAllMeetings()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT *");
