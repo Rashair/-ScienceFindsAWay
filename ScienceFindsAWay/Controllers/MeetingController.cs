@@ -49,20 +49,20 @@ namespace ScienceFindsAWay.Controllers
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<Meeting> GetAllMeetings()
+        public IActionResult GetAllMeetings()
         {
-            return DbQuery("SELECT * FROM Meetings");
+            return Json(DbQuery("SELECT * FROM Meetings"));
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<Meeting> GetAllUserMeetings(int id)
+        public IActionResult GetAllUserMeetings(int id)
         {
             string sql = "SELECT * " +
                 "FROM Meetings m " +
                 "JOIN  MeetingUserMerge mum ON m.MeetingID=mum.MeetingID " +
                 $"WHERE mum.UserID={id}";
 
-            return DbQuery(sql);
+            return Json(DbQuery(sql));
         }
     }
 }

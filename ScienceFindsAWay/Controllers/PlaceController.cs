@@ -42,15 +42,15 @@ namespace ScienceFindsAWay.Controllers
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<Place> GetAllPlaces()
+        public IActionResult GetAllPlaces()
         {
-            return DbQuery("SELECT * FROM Places ORDER BY Name");
+            return Json(DbQuery("SELECT * FROM Places ORDER BY Name"));
         }
 
         [HttpGet("[action]")]
-        public Place GetPlaceById(int id)
+        public IActionResult GetPlaceById(int id)
         {
-            return DbQuery($"SELECT * FROM Places WHERE PlaceID={id}").FirstOrDefault();
+            return Json(DbQuery($"SELECT * FROM Places WHERE PlaceID={id}").FirstOrDefault());
         }
     }
 }

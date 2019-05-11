@@ -64,21 +64,21 @@ namespace ScienceFindsAWay.Controllers
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<User> GetAllUsers()
+        public IActionResult GetAllUsers()
         {
-            return DbQuery("SELECT * FROM Users");
+            return Json(DbQuery("SELECT * FROM Users"));
         }
 
         [HttpGet("[action]")]
-        public User GetUsersWithID(int id)
+        public IActionResult GetUsersWithID(int id)
         {
-            return DbQuery($"SELECT * FROM Users where UserID={id}").FirstOrDefault();
+            return Json(DbQuery($"SELECT * FROM Users where UserID={id}").FirstOrDefault());
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<User> GetUsersByMeetingId(int id)
+        public IActionResult GetUsersByMeetingId(int id)
         {
-            return DbQuery($"SELECT u.* FROM Users u JOIN MeetingUserMerge m on m.UserID=u.UserID and m.MeetingID={id}");
+            return Json(DbQuery($"SELECT u.* FROM Users u JOIN MeetingUserMerge m on m.UserID=u.UserID and m.MeetingID={id}"));
         }
     }
 }

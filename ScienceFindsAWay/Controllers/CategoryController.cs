@@ -42,20 +42,20 @@ namespace ScienceFindsAWay.Controllers
         }
 
         [HttpGet("[action]")]
-        public string GetCategoryName(int id)
+        public IActionResult GetCategoryName(int id)
         {
-            return DbQuery($"SELECT * FROM Categories WHERE CategoryId={id}").FirstOrDefault().Name;
+            return Json(DbQuery($"SELECT * FROM Categories WHERE CategoryId={id}").FirstOrDefault().Name);
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<Category> GetCategoriesByMeetingId(int id)
+        public IActionResult GetCategoriesByMeetingId(int id)
         {
             string sql = "SELECT Categories.* "+
                 "FROM Categories " +
                 "JOIN MeetingCategoryMerge ON Categories.CategoryID=MeetingCategoryMerge.CategoryID " +
                 $"WHERE Categories.CategoryId={id} ";
 
-            return DbQuery(sql);
+            return Json(DbQuery(sql));
         }
     }
 }
