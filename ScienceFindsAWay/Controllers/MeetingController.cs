@@ -44,7 +44,7 @@ namespace ScienceFindsAWay.Controllers
                             var categories = categoryControler.GetCategoriesByMeetingId(id);
                             var participants = userControler.GetUsersByMeetingId(id);
 
-                            userList.Add(new Meeting(id,name,date,place,categories,participants));
+                            userList.Add(new Meeting(id,name,date,place,categories,participants.ToList()));
                         }
                     }
                 }
