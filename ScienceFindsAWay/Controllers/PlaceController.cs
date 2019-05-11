@@ -23,7 +23,7 @@ namespace ScienceFindsAWay.Controllers
                 StringBuilder sb = new StringBuilder();
                 sb.Append("SELECT *");
                 sb.Append("FROM Places");
-                String sql = sb.ToString();
+                string sql = sb.ToString();
  
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
