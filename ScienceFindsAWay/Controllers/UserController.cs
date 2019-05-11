@@ -13,6 +13,13 @@ namespace ScienceFindsAWay.Controllers
     [Route("api/[controller]")]
     public class UserController : Controller
     {
+        private IConfiguration Configuration { get; }
+
+        public UserController(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
         [HttpGet("[action]")]
         public IEnumerable<User> GetAllUsers()
         {
@@ -78,13 +85,6 @@ namespace ScienceFindsAWay.Controllers
             }
             return null;
 
-        }
-
-        private IConfiguration Configuration { get; }
-
-        public UserController(IConfiguration configuration)
-        {
-            Configuration = configuration;
         }
     }
 }
