@@ -6,7 +6,6 @@ import Home from './components/Home';
 import Login from './components/Login';
 import AddMeeting from './components/AddMeeting';
 import Meetings from './components/Meetings';
-import UserMeetings from './components/UserMeetings';
 import PrivateRoute from './authentication/PrivateRoute';
 
 class App extends React.Component {
