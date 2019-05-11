@@ -34,6 +34,9 @@ export default class NavMenu extends React.Component {
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/Meetup">Meetup</NavLink>
                 </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/Meetups">Meetups</NavLink>
+                </NavItem>
                 {this.props.user !== null &&
                   <NavItem>
                     <NavLink tag={Link} className="text-dark" to="/Login">Logout</NavLink>

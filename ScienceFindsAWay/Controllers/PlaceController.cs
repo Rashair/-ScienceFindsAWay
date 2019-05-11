@@ -13,37 +13,58 @@ namespace ScienceFindsAWay.Controllers
     [Route("api/[controller]")]
     public class PlaceController : Controller
     {
-        [HttpGet("[action]")]
-        public IEnumerable<string> GetAllPlaces()
-        {
-            var l = new List<string>();
-            using (SqlConnection connection = new SqlConnection(Configuration.GetConnectionString("SFAWHackBase")))
-            {
-                connection.Open();
-                StringBuilder sb = new StringBuilder();
-                sb.Append("SELECT *");
-                sb.Append("FROM Places");
-                String sql = sb.ToString();
- 
-                using (SqlCommand command = new SqlCommand(sql, connection))
-                {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            l.Add(reader.GetString(1));
-                        }
-                    }
-                }
-            }
-            return l;
-        }
-
         private IConfiguration Configuration { get; }
 
         public PlaceController(IConfiguration configuration)
         {
             Configuration = configuration;
+        }
+
+
+        [HttpGet("[action]")]
+        public IEnumerable<Place> GetAllPlaces()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT * ");
+            sb.Append("FROM Places ");
+            sb.Append("ORDER BY Name ");
+            string sql = sb.ToString();
+            return DbQuery(sql);
+        }
+
+        public Place GetPlaceById(int id)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT * ");
+            sb.Append("FROM Places ");
+            sb.Append($"WHERE PlaceID={id} ");
+            string sql = sb.ToString();
+            return DbQuery(sql).FirstOrDefault();
+        }
+
+        private IEnumerable<Place> DbQuery(string sqlQuery)
+        {
+            var places = new List<Place>();
+            using (SqlConnection connection = new SqlConnection(Configuration.GetConnectionString("SFAWHackBase")))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(sqlQuery, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var index = reader.GetInt32(reader.GetOrdinal("PlaceID"));
+                            var name = reader.GetString(reader.GetOrdinal("Name"));
+                            var address = reader.GetString(reader.GetOrdinal("Address"));
+                            var description = reader.GetString(reader.GetOrdinal("Description"));
+                            places.Add(new Place(index, name, address, description));
+                        }
+                    }
+                }
+            }
+            return places;
         }
     }
 }

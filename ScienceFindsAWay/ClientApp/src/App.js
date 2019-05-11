@@ -5,6 +5,7 @@ import NavMenu from './components/NavMenu';
 import Home from './components/Home';
 import Login from './components/Login';
 import Meetup from './components/Meetup';
+import Meetups from './components/Meetups';
 import PrivateRoute from './authentication/PrivateRoute';
 
 class App extends React.Component {
