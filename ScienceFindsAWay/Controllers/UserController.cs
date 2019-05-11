@@ -40,7 +40,7 @@ namespace ScienceFindsAWay.Controllers
                             var id = reader.GetInt32(reader.GetOrdinal("UserID"));
 
 
-                            userList.Add(new User(name, surname, university, faculty, mail, id, null));
+                            userList.Add(new User(name, surname, university, faculty, mail, id, null, null));
                         }
                     }
                 }
