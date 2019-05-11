@@ -27,17 +27,20 @@ export default class NavMenu extends React.Component {
             <NavbarBrand tag={Link} to="/">ScienceFindsAWay</NavbarBrand>
             <NavbarToggler onClick={this.toggle} className="mr-2" />
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={this.state.isOpen} navbar>
-              {this.props.user !== null &&
-                <ul className="navbar-nav flex-grow">
-                  <NavItem>
-                    <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink tag={Link} className="text-dark" to="/AddMeetup">Add Meetup</NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink tag={Link} className="text-dark" to="/Meetups">Meetups</NavLink>
-                  </NavItem>
+            {this.props.user !== null &&
+              <ul className="navbar-nav flex-grow">
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/AddMeetup">Add Meetup</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/Meetups">All Meetups</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/UserMeetups">My Meetups</NavLink>
+                </NavItem>
                   <NavItem>
                     <NavLink tag={Link} className="text-dark" to="/Login">Logout</NavLink>
                   </NavItem>

@@ -6,6 +6,7 @@ import Home from './components/Home';
 import Login from './components/Login';
 import AddMeetup from './components/AddMeetup';
 import Meetups from './components/Meetups';
+import UserMeetups from './components/UserMeetups';
 import PrivateRoute from './authentication/PrivateRoute';
 
 class App extends React.Component {
@@ -32,6 +33,7 @@ class App extends React.Component {
           <PrivateRoute exact path="/" component={Home} />
           <PrivateRoute path='/addmeetup' component={AddMeetup} />
           <PrivateRoute path='/meetups' component={Meetups} />
+          <PrivateRoute path='/usermeetups' component={UserMeetups} />
         </Container>
       </div>
     );

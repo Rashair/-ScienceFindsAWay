@@ -40,8 +40,7 @@ namespace ScienceFindsAWay.Controllers
                             var mail = reader.GetString(reader.GetOrdinal("Mail"));
                             var username = reader.GetString(reader.GetOrdinal("Username"));
                             var password = reader.GetString(reader.GetOrdinal("Password"));
-                            var passwordSalt = new byte[128 / 8];
-                            reader.GetBytes(reader.GetOrdinal("PasswordSalt"), 0, passwordSalt, 0, 128);
+                            var passwordSalt = reader.GetString(reader.GetOrdinal("PasswordSalt"));
                             var id = reader.GetInt32(reader.GetOrdinal("UserID"));
 
 
@@ -70,7 +69,7 @@ namespace ScienceFindsAWay.Controllers
             var user = DbQuery(sql).FirstOrDefault();
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                                                     password: password,
-                                                    salt: user._passwordSalt,
+                                                    salt: Convert.FromBase64String(user.PasswordSalt),
                                                     prf: KeyDerivationPrf.HMACSHA1,
                                                     iterationCount: 10000,
                                                     numBytesRequested: 256 / 8));
