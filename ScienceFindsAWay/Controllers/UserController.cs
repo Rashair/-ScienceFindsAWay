@@ -20,18 +20,12 @@ namespace ScienceFindsAWay.Controllers
             Configuration = configuration;
         }
 
-        [HttpGet("[action]")]
-        public IEnumerable<User> GetAllUsers()
+        public IEnumerable<User> DbQuery(string sql)
         {
             var userList = new List<User>();
             using (SqlConnection connection = new SqlConnection(Configuration.GetConnectionString("SFAWHackBase")))
             {
                 connection.Open();
-                StringBuilder sb = new StringBuilder();
-                sb.Append("SELECT *");
-                sb.Append("FROM Users");
-                string sql = sb.ToString();
-
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -52,38 +46,30 @@ namespace ScienceFindsAWay.Controllers
                 }
             }
             return userList;
+
+        }
+
+        [HttpGet("[action]")]
+        public IEnumerable<User> GetAllUsers()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT *");
+            sb.Append("FROM Users");
+            string sql = sb.ToString();
+           
+            return DbQuery(sql);
         }
 
         [HttpGet("[action]")]
         public User GetUsersWithID(int id)
         {
-            using (SqlConnection connection = new SqlConnection(Configuration.GetConnectionString("SFAWHackBase")))
-            {
-                connection.Open();
-                StringBuilder sb = new StringBuilder();
-                sb.Append("SELECT *");
-                sb.Append($"FROM Users where UserID={id}");
-                string sql = sb.ToString();
-
-                using (SqlCommand command = new SqlCommand(sql, connection))
-                {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            var name = reader.GetString(reader.GetOrdinal("Name"));
-                            var surname = reader.GetString(reader.GetOrdinal("Surname"));
-                            var university = reader.GetString(reader.GetOrdinal("University"));
-                            var faculty = reader.GetString(reader.GetOrdinal("Faculty"));
-                            var mail = reader.GetString(reader.GetOrdinal("Mail"));
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT *");
+            sb.Append($"FROM Users where UserID={id}");
+            string sql = sb.ToString();
 
 
-                            return new User(name, surname, university, faculty, mail, id, null);
-                        }
-                    }
-                }
-            }
-            return null;
+            return DbQuery(sql).First();
 
         }
     }
