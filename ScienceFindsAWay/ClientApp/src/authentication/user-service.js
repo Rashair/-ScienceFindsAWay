@@ -9,7 +9,7 @@ function login(username, password) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
     };
-
+    console.log(requestOptions.body);
     return fetch(`/users/authenticate`, requestOptions)
         .then(handleResponse)
         .then(user => {
