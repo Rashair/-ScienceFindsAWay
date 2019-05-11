@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Meetups.css'
 
 class Meetups extends Component {
     constructor(props) {
@@ -11,7 +12,7 @@ class Meetups extends Component {
   
     componentDidMount() {
       // This method is called when the component is first added to the document
-      fetch(`api/meetup/getAllMeetups`)
+      fetch(`api/meeting/getAllMeetings`)
       .then(res => res.json())
       .then(
         (result) => {
@@ -27,11 +28,22 @@ class Meetups extends Component {
       return (
         <div>
           <h1>Meetup list</h1>
-          <ul>
-            {this.state.meetups.map((meetup) => {
-              return (<li>xd</li>);
-            })}
-          </ul>
+          <table id="meetups">
+            <thead><tr>
+              <td>Name</td>
+              <td>Date</td>
+              <td>Place</td>
+            </tr></thead>
+            <tbody>
+              {this.state.meetups.map((meetup) => {
+                return (<tr>
+                  <td>{meetup.name}</td>
+                  <td>{meetup.date}</td>
+                  <td>{meetup.place.name}</td>
+                </tr>);
+              })}
+            </tbody>
+          </table>
         </div>
       );
     }

@@ -40,7 +40,7 @@ namespace ScienceFindsAWay.Controllers
                             var id = reader.GetInt32(reader.GetOrdinal("MeetingID"));
                             var name = reader.GetString(reader.GetOrdinal("Name"));
                             var date = reader.GetDateTime(reader.GetOrdinal("Date"));
-                            var place =placeControler.GetPlaceById(reader.GetInt32(reader.GetOrdinal("Place")));
+                            var place = placeControler.GetPlaceById(reader.GetInt32(reader.GetOrdinal("PlaceID")));
                             var categories = categoryControler.GetCategoriesByMeetingId(id);
                             var participants = userControler.GetUsersByMeetingId(id);
 
@@ -59,6 +59,19 @@ namespace ScienceFindsAWay.Controllers
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT * ");
             sb.Append("FROM Meetings ");
+            string sql = sb.ToString();
+
+            return DbQuery(sql);
+        }
+
+        [HttpGet("[action]")]
+        public IEnumerable<Meeting> GetAllUserMeetings(int id)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT * ");
+            sb.Append("FROM Meetings m ");
+            sb.Append("JOIN  MeetingUserMerge mum ON m.MeetingID=mum.MeetingID ");
+            sb.Append($"WHERE mum.UserID={id}");
             string sql = sb.ToString();
 
             return DbQuery(sql);

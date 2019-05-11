@@ -68,11 +68,10 @@ namespace ScienceFindsAWay.Controllers
             sb.Append($"FROM Users where UserID={id} ");
             string sql = sb.ToString();
 
-
-            return DbQuery(sql)?.First();
-
+            return DbQuery(sql)?.FirstOrDefault();
         }
 
+        [HttpGet("[action]")]
         public IEnumerable<User> GetUsersByMeetingId(int id)
         {
             StringBuilder sb = new StringBuilder();
@@ -81,9 +80,7 @@ namespace ScienceFindsAWay.Controllers
             sb.Append($"JOIN MeetingUserMerge m on m.UserID = u.UserID and m.MeetingID = {id} ");
             string sql = sb.ToString();
 
-
             return DbQuery(sql);
-
         }
     }
 }

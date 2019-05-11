@@ -20,28 +20,6 @@ namespace ScienceFindsAWay.Controllers
             Configuration = configuration;
         }
 
-
-        [HttpGet("[action]")]
-        public IEnumerable<Place> GetAllPlaces()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * ");
-            sb.Append("FROM Places ");
-            sb.Append("ORDER BY Name ");
-            string sql = sb.ToString();
-            return DbQuery(sql);
-        }
-
-        public Place GetPlaceById(int id)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * ");
-            sb.Append("FROM Places ");
-            sb.Append($"WHERE PlaceID={id} ");
-            string sql = sb.ToString();
-            return DbQuery(sql).FirstOrDefault();
-        }
-
         private IEnumerable<Place> DbQuery(string sqlQuery)
         {
             var places = new List<Place>();
@@ -65,6 +43,30 @@ namespace ScienceFindsAWay.Controllers
                 }
             }
             return places;
+        }
+
+        [HttpGet("[action]")]
+        public IEnumerable<Place> GetAllPlaces()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT * ");
+            sb.Append("FROM Places ");
+            sb.Append("ORDER BY Name ");
+            string sql = sb.ToString();
+
+            return DbQuery(sql);
+        }
+
+        [HttpGet("[action]")]
+        public Place GetPlaceById(int id)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT * ");
+            sb.Append("FROM Places ");
+            sb.Append($"WHERE PlaceID={id} ");
+            string sql = sb.ToString();
+
+            return DbQuery(sql).FirstOrDefault();
         }
     }
 }

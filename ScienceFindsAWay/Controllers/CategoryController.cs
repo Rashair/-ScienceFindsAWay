@@ -43,8 +43,7 @@ namespace ScienceFindsAWay.Controllers
             return categories;
         }
 
-
-
+        [HttpGet("[action]")]
         public string GetCategoryName(int id)
         {
             StringBuilder sb = new StringBuilder();
@@ -56,13 +55,14 @@ namespace ScienceFindsAWay.Controllers
             return DbQuery(sql).FirstOrDefault().Name;
         }
 
+        [HttpGet("[action]")]
         public IEnumerable<Category> GetCategoriesByMeetingId(int id)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT Categories.* ");
             sb.Append("FROM Categories ");
             sb.Append("JOIN MeetingCategoryMerge ON Categories.CategoryID=MeetingCategoryMerge.CategoryID ");
-            sb.Append("WHERE CategoryId=id ");
+            sb.Append($"WHERE Categories.CategoryId={id} ");
             string sql = sb.ToString();
 
             return DbQuery(sql);
