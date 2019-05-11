@@ -16,10 +16,10 @@ namespace ScienceFindsAWay.Models
         public int UserID { get; }
         public Skill[] Skills { get; protected set; }
         private string _password;
-        internal byte[] _passwordSalt = new byte[128/8];
+        public string PasswordSalt { get; protected set; };
         
 
-        public User(string n, string s, string u, string f,string m, int uid, Skill[] sk, string username, string password, byte[] passwordSalt)
+        public User(string n, string s, string u, string f,string m, int uid, Skill[] sk, string username, string password, string passwordSalt)
         {
             Name = n;
             Surname = s;
@@ -30,7 +30,7 @@ namespace ScienceFindsAWay.Models
             UserID = uid;
             Skills = sk?.ToArray();
             _password = password;
-            _passwordSalt = passwordSalt?.ToArray();
+            PasswordSalt = passwordSalt;
         }
 
         public bool CheckPassword(string pass)
