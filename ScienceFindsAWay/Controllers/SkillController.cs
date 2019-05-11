@@ -33,11 +33,12 @@ namespace ScienceFindsAWay.Controllers
                         while (reader.Read())
                         {
                             var index = reader.GetInt32(reader.GetOrdinal("SkillID"));
-                            var general = reader.GetInt32(reader.GetOrdinal("CategoryGeneral"));
-                            var medium = reader.GetInt32(reader.GetOrdinal("CategoryMedium"));
-                            var specific = reader.GetInt32(reader.GetOrdinal("CategorySpecific"));
-                            //convert categoryid to name
-                            places.Add(new Skill(index ,general, medium, specific));
+                            var name = reader.GetString(reader.GetOrdinal("Name"));
+                            var generalID = reader.GetInt32(reader.GetOrdinal("CategoryGeneral"));
+                            var mediumID = reader.GetInt32(reader.GetOrdinal("CategoryMedium"));
+                            var specificID = reader.GetInt32(reader.GetOrdinal("CategorySpecific"));
+                            var con = new CategoryController(this.Configuration);
+                            places.Add(new Skill(index, name, con.GetCategoryName(generalID), con.GetCategoryName(mediumID), con.GetCategoryName(specificID)));
                         }
                     }
                 }
