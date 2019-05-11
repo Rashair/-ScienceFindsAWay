@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using ScienceFindsAWay.Models;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ScienceFindsAWay.Controllers
 {
@@ -54,27 +49,20 @@ namespace ScienceFindsAWay.Controllers
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<Meeting> GetAllMeetings()
+        public IActionResult GetAllMeetings()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * ");
-            sb.Append("FROM Meetings ");
-            string sql = sb.ToString();
-
-            return DbQuery(sql);
+            return Json(DbQuery("SELECT * FROM Meetings"));
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<Meeting> GetAllUserMeetings(int id)
+        public IActionResult GetAllUserMeetings(int id)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * ");
-            sb.Append("FROM Meetings m ");
-            sb.Append("JOIN  MeetingUserMerge mum ON m.MeetingID=mum.MeetingID ");
-            sb.Append($"WHERE mum.UserID={id}");
-            string sql = sb.ToString();
+            string sql = "SELECT * " +
+                "FROM Meetings m " +
+                "JOIN  MeetingUserMerge mum ON m.MeetingID=mum.MeetingID " +
+                $"WHERE mum.UserID={id}";
 
-            return DbQuery(sql);
+            return Json(DbQuery(sql));
         }
     }
 }
