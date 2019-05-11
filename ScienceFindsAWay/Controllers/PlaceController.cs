@@ -48,25 +48,13 @@ namespace ScienceFindsAWay.Controllers
         [HttpGet("[action]")]
         public IEnumerable<Place> GetAllPlaces()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * ");
-            sb.Append("FROM Places ");
-            sb.Append("ORDER BY Name ");
-            string sql = sb.ToString();
-
-            return DbQuery(sql);
+            return DbQuery("SELECT * FROM Places ORDER BY Name");
         }
 
         [HttpGet("[action]")]
         public Place GetPlaceById(int id)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * ");
-            sb.Append("FROM Places ");
-            sb.Append($"WHERE PlaceID={id} ");
-            string sql = sb.ToString();
-
-            return DbQuery(sql).FirstOrDefault();
+            return DbQuery($"SELECT * FROM Places WHERE PlaceID={id}").FirstOrDefault();
         }
     }
 }

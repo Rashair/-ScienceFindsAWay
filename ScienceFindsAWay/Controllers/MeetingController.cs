@@ -56,23 +56,16 @@ namespace ScienceFindsAWay.Controllers
         [HttpGet("[action]")]
         public IEnumerable<Meeting> GetAllMeetings()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * ");
-            sb.Append("FROM Meetings ");
-            string sql = sb.ToString();
-
-            return DbQuery(sql);
+            return DbQuery("SELECT * FROM Meetings");
         }
 
         [HttpGet("[action]")]
         public IEnumerable<Meeting> GetAllUserMeetings(int id)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * ");
-            sb.Append("FROM Meetings m ");
-            sb.Append("JOIN  MeetingUserMerge mum ON m.MeetingID=mum.MeetingID ");
-            sb.Append($"WHERE mum.UserID={id}");
-            string sql = sb.ToString();
+            string sql = "SELECT * " +
+                "FROM Meetings m " +
+                "JOIN  MeetingUserMerge mum ON m.MeetingID=mum.MeetingID " +
+                $"WHERE mum.UserID={id}";
 
             return DbQuery(sql);
         }

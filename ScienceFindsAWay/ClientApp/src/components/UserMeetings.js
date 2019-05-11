@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import './Meetups.css'
 
-class UserMeetups extends Component {
+class UserMeetings extends Component {
     constructor(props) {
       super(props);
   
       this.state = {
-        meetups: []
+        Meetings: []
       };
     }
   
@@ -17,7 +16,7 @@ class UserMeetups extends Component {
       .then(
         (result) => {
           this.setState({
-            meetups: result
+            Meetings: result
           });
         }
       )
@@ -27,19 +26,21 @@ class UserMeetups extends Component {
     render() {
       return (
         <div>
-          <h1>Meetup list TODO</h1>
-          <table id="meetups">
-            <thead><tr>
-              <td>Name</td>
-              <td>Date</td>
-              <td>Place</td>
-            </tr></thead>
+          <h1>Meeting list TODO</h1>
+          <table id="Meetings" className="table table-responsive">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Place</th>
+              </tr>
+            </thead>
             <tbody>
-              {this.state.meetups.map((meetup) => {
+              {this.state.Meetings.map((Meeting) => {
                 return (<tr>
-                  <td>{meetup.name}</td>
-                  <td>{meetup.date}</td>
-                  <td>{meetup.place.name}</td>
+                  <td>{Meeting.name}</td>
+                  <td>{Meeting.date}</td>
+                  <td>{Meeting.place.name}</td>
                 </tr>);
               })}
             </tbody>
@@ -49,5 +50,5 @@ class UserMeetups extends Component {
     }
   }
   
-  export default(UserMeetups);
+  export default(UserMeetings);
   

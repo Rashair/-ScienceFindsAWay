@@ -46,24 +46,16 @@ namespace ScienceFindsAWay.Controllers
         [HttpGet("[action]")]
         public string GetCategoryName(int id)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * ");
-            sb.Append("FROM Categories ");
-            sb.Append("WHERE CategoryId=id ");
-            string sql = sb.ToString();
-
-            return DbQuery(sql).FirstOrDefault().Name;
+            return DbQuery($"SELECT * FROM Categories WHERE CategoryId={id}").FirstOrDefault().Name;
         }
 
         [HttpGet("[action]")]
         public IEnumerable<Category> GetCategoriesByMeetingId(int id)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT Categories.* ");
-            sb.Append("FROM Categories ");
-            sb.Append("JOIN MeetingCategoryMerge ON Categories.CategoryID=MeetingCategoryMerge.CategoryID ");
-            sb.Append($"WHERE Categories.CategoryId={id} ");
-            string sql = sb.ToString();
+            string sql = "SELECT Categories.* "+
+                "FROM Categories " +
+                "JOIN MeetingCategoryMerge ON Categories.CategoryID=MeetingCategoryMerge.CategoryID " +
+                $"WHERE Categories.CategoryId={id} ";
 
             return DbQuery(sql);
         }

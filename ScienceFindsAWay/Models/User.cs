@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace ScienceFindsAWay.Models
 {
@@ -15,7 +16,7 @@ namespace ScienceFindsAWay.Models
         public string Username { get; protected set; }
         public int UserID { get; }
         public Skill[] Skills { get; protected set; }
-        private string _password;
+        internal string _password;
         public string PasswordSalt { get; protected set; }
         
 
@@ -33,9 +34,16 @@ namespace ScienceFindsAWay.Models
             PasswordSalt = passwordSalt;
         }
 
-        public bool CheckPassword(string pass)
+        public bool CheckPassword(string password)
         {
-            return pass == _password;
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                                                    password: password,
+                                                    salt: Convert.FromBase64String(PasswordSalt),
+                                                    prf: KeyDerivationPrf.HMACSHA1,
+                                                    iterationCount: 10000,
+                                                    numBytesRequested: 256 / 8));
+                                                    
+            return hashed == _password;
         }
     }
 }

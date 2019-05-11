@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using ScienceFindsAWay.Models;
@@ -59,58 +58,30 @@ namespace ScienceFindsAWay.Controllers
         }
 
         [HttpPost("[action]")]
-        public IActionResult LogIn([FromBody]Credentials credentials)
+        public IActionResult LogIn([FromBody]Credentials cred)
         {
-            string username = credentials.username;
-            string password = credentials.password;
-
-            string sql = $"SELECT * FROM Users WHERE Username='{username}'";
-
+            string sql = $"SELECT * FROM Users WHERE Username='{cred.username}'";
             var user = DbQuery(sql).FirstOrDefault();
-            if (user == null)
-                return Json("test response");
-            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                                                    password: password,
-                                                    salt: Convert.FromBase64String(user.PasswordSalt),
-                                                    prf: KeyDerivationPrf.HMACSHA1,
-                                                    iterationCount: 10000,
-                                                    numBytesRequested: 256 / 8));
 
-            return user.CheckPassword(hashed) ? Json(user) : Json("test response");
+            return user != null && user.CheckPassword(cred.password) ?  Json(user) : null;
         }
 
         [HttpGet("[action]")]
         public IEnumerable<User> GetAllUsers()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * ");
-            sb.Append("FROM Users ");
-            string sql = sb.ToString();
-
-            return DbQuery(sql);
+            return DbQuery("SELECT * FROM Users");
         }
 
         [HttpGet("[action]")]
         public User GetUsersWithID(int id)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT * ");
-            sb.Append($"FROM Users where UserID={id} ");
-            string sql = sb.ToString();
-
-            return DbQuery(sql)?.FirstOrDefault();
+            return DbQuery($"SELECT * FROM Users where UserID={id}").FirstOrDefault();
         }
 
         [HttpGet("[action]")]
         public IEnumerable<User> GetUsersByMeetingId(int id)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT u.* ");
-            sb.Append($"FROM Users u ");
-            sb.Append($"JOIN MeetingUserMerge m on m.UserID = u.UserID and m.MeetingID = {id} ");
-            string sql = sb.ToString();
-
-            return DbQuery(sql);
+            return DbQuery($"SELECT u.* FROM Users u JOIN MeetingUserMerge m on m.UserID=u.UserID and m.MeetingID={id}");
         }
     }
 }
