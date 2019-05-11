@@ -32,7 +32,7 @@ export default class NavMenu extends React.Component {
                   <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/Meetup">Meetup</NavLink>
+                  <NavLink tag={Link} className="text-dark" to="/AddMeetup">Add Meetup</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/Meetups">Meetups</NavLink>

@@ -4,7 +4,7 @@ import { Container } from 'reactstrap';
 import NavMenu from './components/NavMenu';
 import Home from './components/Home';
 import Login from './components/Login';
-import Meetup from './components/Meetup';
+import AddMeetup from './components/AddMeetup';
 import Meetups from './components/Meetups';
 import PrivateRoute from './authentication/PrivateRoute';
 
@@ -30,7 +30,8 @@ class App extends React.Component {
         <Container>
           <Route path="/login" render={(props) => <Login {...props} loginHandler={this.loginHandler}  />} />
           <PrivateRoute exact path="/" component={Home} />
-          <PrivateRoute path='/meetup' component={Meetup} />
+          <PrivateRoute path='/addmeetup' component={AddMeetup} />
+          <PrivateRoute path='/meetups' component={Meetups} />
         </Container>
       </div>
     );
