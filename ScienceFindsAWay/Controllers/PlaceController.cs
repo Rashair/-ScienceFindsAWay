@@ -27,8 +27,19 @@ namespace ScienceFindsAWay.Controllers
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT *");
             sb.Append("FROM Places");
+            sb.Append("ORDER BY Name");
             string sql = sb.ToString();
             return DbQuery(sql);
+        }
+
+        public Place GetPlaceById(int id)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT *");
+            sb.Append("FROM Places");
+            sb.Append($"WHERE PlaceID={id}");
+            string sql = sb.ToString();
+            return DbQuery(sql).FirstOrDefault();
         }
 
         private IEnumerable<Place> DbQuery(string sqlQuery)
@@ -37,7 +48,7 @@ namespace ScienceFindsAWay.Controllers
             using (SqlConnection connection = new SqlConnection(Configuration.GetConnectionString("SFAWHackBase")))
             {
                 connection.Open();
-                
+
                 using (SqlCommand command = new SqlCommand(sqlQuery, connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
