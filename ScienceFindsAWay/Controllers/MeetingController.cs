@@ -57,8 +57,8 @@ namespace ScienceFindsAWay.Controllers
         public IEnumerable<Meeting> GetAllMeetings()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT *");
-            sb.Append("FROM Meetings");
+            sb.Append("SELECT * ");
+            sb.Append("FROM Meetings ");
             string sql = sb.ToString();
 
             return DbQuery(sql);

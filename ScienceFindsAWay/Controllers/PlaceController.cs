@@ -25,9 +25,9 @@ namespace ScienceFindsAWay.Controllers
         public IEnumerable<Place> GetAllPlaces()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT *");
-            sb.Append("FROM Places");
-            sb.Append("ORDER BY Name");
+            sb.Append("SELECT * ");
+            sb.Append("FROM Places ");
+            sb.Append("ORDER BY Name ");
             string sql = sb.ToString();
             return DbQuery(sql);
         }
@@ -35,9 +35,9 @@ namespace ScienceFindsAWay.Controllers
         public Place GetPlaceById(int id)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT *");
-            sb.Append("FROM Places");
-            sb.Append($"WHERE PlaceID={id}");
+            sb.Append("SELECT * ");
+            sb.Append("FROM Places ");
+            sb.Append($"WHERE PlaceID={id} ");
             string sql = sb.ToString();
             return DbQuery(sql).FirstOrDefault();
         }

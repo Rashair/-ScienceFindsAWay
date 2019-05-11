@@ -53,8 +53,8 @@ namespace ScienceFindsAWay.Controllers
         public IEnumerable<User> GetAllUsers()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT *");
-            sb.Append("FROM Users");
+            sb.Append("SELECT * ");
+            sb.Append("FROM Users ");
             string sql = sb.ToString();
 
             return DbQuery(sql);
@@ -64,8 +64,8 @@ namespace ScienceFindsAWay.Controllers
         public User GetUsersWithID(int id)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT *");
-            sb.Append($"FROM Users where UserID={id}");
+            sb.Append("SELECT * ");
+            sb.Append($"FROM Users where UserID={id} ");
             string sql = sb.ToString();
 
 
@@ -76,9 +76,9 @@ namespace ScienceFindsAWay.Controllers
         public IEnumerable<User> GetUsersByMeetingId(int id)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT u.Name , u.Surname, u.Faculty, u.Mail, u.UserID");
-            sb.Append($"FROM Users u");
-            sb.Append($"JOIN MeetingUserMerge m on m.UserID = u.UserID and m.MeetingID = {id}");
+            sb.Append("SELECT u.Name , u.Surname, u.Faculty, u.Mail, u.UserID ");
+            sb.Append($"FROM Users u ");
+            sb.Append($"JOIN MeetingUserMerge m on m.UserID = u.UserID and m.MeetingID = {id} ");
             string sql = sb.ToString();
 
 

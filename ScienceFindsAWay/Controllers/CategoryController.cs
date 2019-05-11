@@ -48,9 +48,9 @@ namespace ScienceFindsAWay.Controllers
         public string GetCategoryName(int id)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT *");
-            sb.Append("FROM Categories");
-            sb.Append("WHERE CategoryId=id");
+            sb.Append("SELECT * ");
+            sb.Append("FROM Categories ");
+            sb.Append("WHERE CategoryId=id ");
             string sql = sb.ToString();
 
             return DbQuery(sql).FirstOrDefault().Name;
@@ -59,10 +59,10 @@ namespace ScienceFindsAWay.Controllers
         public IEnumerable<Category> GetCategoriesByMeetingId(int id)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT Categories.*");
-            sb.Append("FROM Categories");
-            sb.Append("JOIN MeetingCategoryMerge ON Categories.CategoryID=MeetingCategoryMerge.CategoryID");
-            sb.Append("WHERE CategoryId=id");
+            sb.Append("SELECT Categories.* ");
+            sb.Append("FROM Categories ");
+            sb.Append("JOIN MeetingCategoryMerge ON Categories.CategoryID=MeetingCategoryMerge.CategoryID ");
+            sb.Append("WHERE CategoryId=id ");
             string sql = sb.ToString();
 
             return DbQuery(sql);
