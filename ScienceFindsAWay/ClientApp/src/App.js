@@ -31,6 +31,7 @@ class App extends React.Component {
           <Route path="/login" render={(props) => <Login {...props} loginHandler={this.loginHandler}  />} />
           <PrivateRoute exact path="/" component={Home} />
           <PrivateRoute path='/meetup' component={Meetup} />
+          <PrivateRoute path='/meetups' component={Meetups} />
         </Container>
       </div>
     );
