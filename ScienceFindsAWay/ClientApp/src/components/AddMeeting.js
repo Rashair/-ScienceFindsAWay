@@ -29,7 +29,7 @@ class AddMeeting extends Component {
     render() {
       return (
         <div>
-          <h1>Create new Meetup</h1>
+          <h1>Create a new Meeting</h1>
            <section> {}</section>
            <section> {}</section>
         </div>

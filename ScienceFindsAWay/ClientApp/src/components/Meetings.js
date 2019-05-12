@@ -1,22 +1,29 @@
 import React, { Component } from 'react';
+import MeetingsTable from './MeetingsTable'
+import { Spinner } from './Spinner';
 
 class Meetings extends Component {
     constructor(props) {
       super(props);
   
       this.state = {
-        Meetings: []
+        Meetings: [],
+        isLoading: false,
       };
     }
   
     componentDidMount() {
-      // This method is called when the component is first added to the document
+      this.setState({
+        isLoading:true,
+      });
+
       fetch(`api/meeting/getAllMeetings`)
       .then(res => res.json())
       .then(
         (result) => {
           this.setState({
-            Meetings: result
+            Meetings: result,
+            isLoading: false,
           });
         }
       )
@@ -24,29 +31,17 @@ class Meetings extends Component {
   
   
     render() {
+      if(this.state.isLoading)
+      {
+        return(
+          <Spinner />
+        )
+      }
+
       return (
         <div>
           <h1>Meeting list</h1>
-          <table id="Meetings" className="table table-responsive">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Date</th>
-                <th>Place</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.Meetings.map((Meeting, i) => {
-                return (
-                  <tr key={i}>
-                    <td>{Meeting.name}</td>
-                    <td>{Meeting.date}</td>
-                    <td>{Meeting.place.name}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <MeetingsTable table={this.state.Meetings} />
         </div>
       );
     }
