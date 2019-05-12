@@ -15,9 +15,9 @@ namespace ScienceFindsAWay.Models
         public List<Category> Categories { get; set; }
         public List<User> Participants { get; set; }
 
-        public Meeting(int _meetingId, string name, DateTime date, Place placeName, List<Category> categories, List<User> participants)
+        public Meeting(int meetingId, string name, DateTime date, Place placeName, List<Category> categories, List<User> participants)
         {
-            MeetingId = _meetingId;
+            MeetingId = meetingId;
             Name = name;
             Date = date;
             Place = placeName;

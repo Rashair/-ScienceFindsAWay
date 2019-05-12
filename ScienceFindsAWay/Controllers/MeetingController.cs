@@ -52,6 +52,15 @@ namespace ScienceFindsAWay.Controllers
 
         }
 
+        [HttpPost("[action]")]
+        public IActionResult AddMeeting([FromBody]Meeting meet)
+        {
+            string sql = $"INSERT INTO Meetings (MeetingID,PlaceID,Date,Name) VALUES ({meet.MeetingId}, {meet.Place.Index}, '{meet.Date.ToOADate()}', '{meet.Name}', '{meet.Description}');"
+                +$"INSERT INTO";
+
+            return null;
+        }
+
         [HttpGet("[action]")]
         public IActionResult GetAllMeetings()
         {
