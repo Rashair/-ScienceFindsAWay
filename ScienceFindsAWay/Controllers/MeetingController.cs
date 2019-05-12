@@ -67,6 +67,14 @@ namespace ScienceFindsAWay.Controllers
                 $"WHERE mum.UserID={id}";
 
             return Json(DbQuery(sql));
+        }[HttpGet("[action]")]
+        public IActionResult GetMeetingsById(int id)
+        {
+            string sql = "SELECT * " +
+                "FROM Meetings m "  +
+                $"WHERE m.MeetingID={id}";
+
+            return Json(DbQuery(sql));
         }
     }
 }
