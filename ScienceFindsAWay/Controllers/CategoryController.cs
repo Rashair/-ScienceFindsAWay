@@ -74,6 +74,7 @@ namespace ScienceFindsAWay.Controllers
         [HttpGet("[action]")]
         public IActionResult GetCategoriesByLevel(int level)
         {
+            if (level < 1 || level > 3) throw (new ArgumentException());
             return Json(DbQuery($"SELECT * FROM Categories where CategoryLevel = {level}"));
         }
     }
