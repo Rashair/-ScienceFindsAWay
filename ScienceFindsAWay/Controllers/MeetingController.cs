@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using ScienceFindsAWay.Models;
@@ -55,8 +56,24 @@ namespace ScienceFindsAWay.Controllers
         [HttpPost("[action]")]
         public IActionResult AddMeeting([FromBody]Meeting meet)
         {
-            string sql = $"INSERT INTO Meetings (MeetingID,PlaceID,Date,Name) VALUES ({meet.MeetingId}, {meet.Place.Index}, '{meet.Date.ToOADate()}', '{meet.Name}', '{meet.Description}');"
-                +$"INSERT INTO";
+            var sql = new StringBuilder($"INSERT INTO Meetings (MeetingID,PlaceID,Date,Name,Description) VALUES ({meet.MeetingId}, {meet.Place.Index}, '{meet.Date.ToOADate()}', '{meet.Name}', '{meet.Description}');");
+            foreach(var user in meet.Participants)
+            {
+                sql.Append($"INSERT INTO MeetingUserMerge (MeetingID,UserID) VALUES ({meet.MeetingId}, {user.UserID});");
+            }
+            foreach(var category in meet.Categories)
+            {
+                sql.Append($"INSERT INTO MeetingCategoryMerge (MeetingID,CategoryID) VALUES ({meet.MeetingId}, {category.CategoryID});");
+            }
+
+            using (SqlConnection connection = new SqlConnection(Configuration.GetConnectionString("SFAWHackBase")))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand(sql.ToString(), connection))
+                {
+                    command.ExecuteNonQuery();                    
+                }
+            }
 
             return null;
         }
