@@ -18,7 +18,7 @@ namespace ScienceFindsAWay.Models
         public string CategorySpecific { get => _categorySpecific; set => _categorySpecific = value; }
         public string CategoryMedium { get => _categoryMedium; set => _categoryMedium = value; }
 
-        public Skill(int id, string n, string cg, string cs, string cm)
+        public Skill(int id, string n, string cg, string cm, string cs)
         {
             SkillID = id;
             Name = n;
