@@ -6,7 +6,7 @@ class MeetingsTable extends Component {
             var date = new Date(Meeting.date);
             return (
                 <tr key={i}>
-                    <td>{Meeting.name}</td>
+                    <td><a href={`/MeetingInfo/${Meeting.meetingId}`}>{Meeting.name}</a></td>
                     <td>
                         {date.toLocaleDateString()} {date.toLocaleTimeString().slice(0, 5)}
                     </td>
