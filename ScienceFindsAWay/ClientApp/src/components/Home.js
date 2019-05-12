@@ -43,7 +43,7 @@ class Home extends Component {
     return (
       <div class="row">
         <div class="col-sm-6">
-          <h1>Your meetups</h1>
+          <h1>Your Meetings</h1>
           {<MeetingsTable table={this.state.Meetings} />}
         </div>
         <div class="col-sm-6">
