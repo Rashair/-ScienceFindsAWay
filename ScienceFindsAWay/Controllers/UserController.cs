@@ -43,9 +43,9 @@ namespace ScienceFindsAWay.Controllers
 
                             var skillController = new SkillController(Configuration);
                             var skillsJson = skillController.GetUserSkills(id);
-                            var skills = (skillsJson as JsonResult).Value as Skill[];
+                            var skills = (skillsJson as JsonResult).Value as List<Skill>;
 
-                            userList.Add(new User(name, surname, university, faculty, mail, id, skills, username, password, passwordSalt));
+                            userList.Add(new User(name, surname, university, faculty, mail, id, skills.ToArray(), username, password, passwordSalt));
                         }
                     }
                 }
