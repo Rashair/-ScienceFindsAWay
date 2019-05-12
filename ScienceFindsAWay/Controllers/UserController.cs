@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using ScienceFindsAWay.Models;
@@ -49,9 +51,10 @@ namespace ScienceFindsAWay.Controllers
 
         }
 
-        public class Credentials {
-            public string username {get; set;}
-            public string password {get; set;}
+        public class Credentials
+        {
+            public string username { get; set; }
+            public string password { get; set; }
         }
 
         [HttpPost("[action]")]
@@ -60,7 +63,7 @@ namespace ScienceFindsAWay.Controllers
             string sql = $"SELECT * FROM Users WHERE Username='{cred.username}'";
             var user = DbQuery(sql).FirstOrDefault();
 
-            return user != null && user.CheckPassword(cred.password) ?  Json(user) : null;
+            return user != null && user.CheckPassword(cred.password) ? Json(user) : null;
         }
 
         [HttpGet("[action]")]
@@ -79,6 +82,36 @@ namespace ScienceFindsAWay.Controllers
         public IActionResult GetUsersByMeetingId(int id)
         {
             return Json(DbQuery($"SELECT u.* FROM Users u JOIN MeetingUserMerge m on m.UserID=u.UserID and m.MeetingID={id}"));
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult AddUser(User user)
+        {
+            byte[] salt = new byte[128 / 8];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(salt);
+            }
+            user.PasswordSalt = Convert.ToBase64String(salt);
+            string sql = "Insert into Users (Name,Surname,University,Faculty,Mail,Password,Username,PasswordSalt)" +
+                $" values ('{user.Name}','{user.Surname}','{user.University}','{user.Faculty}','{user.Mail}'"+
+                $",'{user.HashPassword(user._password)}','{user.Username}','{user.PasswordSalt}')";
+                try
+            {
+                using (SqlConnection connection = new SqlConnection(Configuration.GetConnectionString("SFAWHackBase")))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch(SqlException)
+            {
+                return Json(false);
+            }
+            return Json(true);
         }
     }
 }

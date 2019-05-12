@@ -16,8 +16,8 @@ namespace ScienceFindsAWay.Models
         public string Username { get; protected set; }
         public int UserID { get; }
         public Skill[] Skills { get; protected set; }
-        internal string _password;
-        public string PasswordSalt { get; protected set; }
+        public string _password { get; set; }
+        public string PasswordSalt { get; set; }
         
         public User(string n, string s, string u, string f,string m, int uid, Skill[] sk, string username, string password, string passwordSalt)
         {
@@ -34,15 +34,18 @@ namespace ScienceFindsAWay.Models
         }
 
         public bool CheckPassword(string password)
+        {                                                   
+            return HashPassword(password) == _password;
+        }
+
+        public string HashPassword(string password)
         {
-            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+            return Convert.ToBase64String(KeyDerivation.Pbkdf2(
                                                     password: password,
                                                     salt: Convert.FromBase64String(PasswordSalt),
                                                     prf: KeyDerivationPrf.HMACSHA1,
                                                     iterationCount: 10000,
                                                     numBytesRequested: 256 / 8));
-                                                    
-            return hashed == _password;
         }
     }
 }
