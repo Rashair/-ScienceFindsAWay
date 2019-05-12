@@ -42,7 +42,7 @@ namespace ScienceFindsAWay.Controllers
                             var id = reader.GetInt32(reader.GetOrdinal("UserID"));
                             //var skillsJson = reader
 
-                            userList.Add(new User(name, surname, university, faculty, mail, id, new Skill[], username, password, passwordSalt));
+                            userList.Add(new User(name, surname, university, faculty, mail, id, new Skill[] { }, username, password, passwordSalt));
                         }
                     }
                 }
