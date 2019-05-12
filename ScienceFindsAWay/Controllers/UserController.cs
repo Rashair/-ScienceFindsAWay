@@ -40,9 +40,9 @@ namespace ScienceFindsAWay.Controllers
                             var password = reader.GetString(reader.GetOrdinal("Password"));
                             var passwordSalt = reader.GetString(reader.GetOrdinal("PasswordSalt"));
                             var id = reader.GetInt32(reader.GetOrdinal("UserID"));
+                            //var skillsJson = reader
 
-
-                            userList.Add(new User(name, surname, university, faculty, mail, id, null, username, password, passwordSalt));
+                            userList.Add(new User(name, surname, university, faculty, mail, id, new Skill[], username, password, passwordSalt));
                         }
                     }
                 }
