@@ -57,15 +57,17 @@ namespace ScienceFindsAWay.Controllers
         [HttpPost("[action]")]
         public IActionResult AddMeeting([FromBody]Meeting meet)
         {
-            var sql = new StringBuilder($"INSERT INTO Meetings (MeetingID,PlaceID,Date,Name,Description) VALUES ({meet.MeetingId}, {meet.Place.Index}, '{meet.Date.ToOADate()}', '{meet.Name}', '{meet.Description}');");
-            foreach(var user in meet.Participants)
+            var sql = new StringBuilder($"BEGIN TRANSACTION; INSERT INTO Meetings (MeetingID,PlaceID,Date,Name,Description) VALUES ({meet.MeetingId}, {meet.Place.Index}, '{meet.Date.ToOADate()}', '{meet.Name}', '{meet.Description}');");
+            sql.Append("@ID=SELECT IDENT_CURRENT(‘Meetings’);");
+            foreach (var user in meet.Participants)
             {
-                sql.Append($"INSERT INTO MeetingUserMerge (MeetingID,UserID) VALUES ({meet.MeetingId}, {user.UserID});");
+                sql.Append($"INSERT INTO MeetingUserMerge (MeetingID,UserID) VALUES (@ID, {user.UserID});");
             }
             foreach(var category in meet.Categories)
             {
-                sql.Append($"INSERT INTO MeetingCategoryMerge (MeetingID,CategoryID) VALUES ({meet.MeetingId}, {category.CategoryID});");
+                sql.Append($"INSERT INTO MeetingCategoryMerge (MeetingID,CategoryID) VALUES (@ID, {category.CategoryID});");
             }
+            sql.Append("COMMIT");
 
             try
             {
@@ -101,7 +103,9 @@ namespace ScienceFindsAWay.Controllers
                 $"WHERE mum.UserID={id}";
 
             return Json(DbQuery(sql));
-        }[HttpGet("[action]")]
+        }
+
+        [HttpGet("[action]")]
         public IActionResult GetMeetingsById(int id)
         {
             string sql = "SELECT * " +

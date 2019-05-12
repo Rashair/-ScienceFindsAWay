@@ -34,15 +34,18 @@ namespace ScienceFindsAWay.Models
         }
 
         public bool CheckPassword(string password)
+        {                                                   
+            return HashPassword(password) == _password;
+        }
+
+        public string HashPassword(string password)
         {
-            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+            return Convert.ToBase64String(KeyDerivation.Pbkdf2(
                                                     password: password,
                                                     salt: Convert.FromBase64String(PasswordSalt),
                                                     prf: KeyDerivationPrf.HMACSHA1,
                                                     iterationCount: 10000,
                                                     numBytesRequested: 256 / 8));
-                                                    
-            return hashed == _password;
         }
     }
 }
