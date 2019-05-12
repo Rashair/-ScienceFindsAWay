@@ -61,7 +61,7 @@ class MessageInfo extends Component {
           </div>
           <div className="col-sm-4">
             <h2>Location</h2>
-            <div><strong>{this.state.Info.place.name}</strong> @ {this.state.Info.place.address}</div>
+            <div><strong>{this.state.Info.place.name}</strong> - {this.state.Info.place.address}</div>
             <div>{this.state.Info.place.description}</div>
           </div>
         </div>
