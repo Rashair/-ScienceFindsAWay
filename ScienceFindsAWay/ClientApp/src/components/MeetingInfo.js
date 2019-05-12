@@ -33,7 +33,6 @@ class MessageInfo extends Component {
       )
     }
 
-    console.log(this.state);
     return (
       <div>
         <h1>Meeting info</h1>
@@ -45,7 +44,7 @@ class MessageInfo extends Component {
             <h2>Participants</h2>
             <ul>
               {this.state.Info.participants.map((Participant, i) => {
-                  return (<li key={i}>{Participant.name} {Participant.surname}</li>);
+                  return (<li key={i}><a href={`/UserInfo/${Participant.userID}`}>{Participant.name} {Participant.surname}</a></li>);
               })}
             </ul>
           </div>
