@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MeetingsTable from './MeetingsTable'
+import { Spinner } from './Spinner';
 
 class Home extends Component {
   constructor(props) {
@@ -33,18 +34,17 @@ class Home extends Component {
 
 
   render() {
-    var t;
     if (this.state.isLoading) {
-      t = "Here Przemek will add a spinner"
+      return (
+        <Spinner/>
+      )
     }
-    else {
-      t = <MeetingsTable table={this.state.Meetings} />
-    }
+
     return (
       <div class="row">
         <div class="col-sm-6">
           <h1>Your meetups</h1>
-          {t}
+          {<MeetingsTable table={this.state.Meetings} />}
         </div>
         <div class="col-sm-6">
           Something will maybe be here…
