@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Spinner } from './Spinner';
 
-class Home extends Component {
+class MessageInfo extends Component {
   constructor(props) {
     super(props);
 
@@ -68,4 +68,4 @@ class Home extends Component {
   }
 }
 
-export default(Home);
+export default(MessageInfo);
