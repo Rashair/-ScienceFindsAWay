@@ -30,13 +30,12 @@ class AddMeeting extends Component {
 
   handleCat1Choice(e)  {
     const s = e.target;
-    const elementId = s[s.selectedIndex];
+    const elementId = s[s.selectedIndex].id;
     fetch(`api/category/GetSlaveCategories?id=${elementId}`)
     .then(res => res.json())
     .then((result) => {
-          this.setState({ meeting: { ...this.state.meeting, categories2: result } });
-        },
-    );
+      this.setState({ meeting: { ...this.state.meeting, categories2: result } });
+    });
   }
 
   handleSubmit(e) {
@@ -79,7 +78,7 @@ class AddMeeting extends Component {
   render() {
     const places = this.state.places.map((place, i) => <option key={i}>{place.name}</option>);
     const categoriesLev1 = this.state.categories1.map((category, i) => 
-      <option key={i} id={category.categoryId}>{category.name}</option>
+      <option key={i} id={category.categoryID}>{category.name}</option>
     );
     const categoriesLev2 = this.state.categories2.map((category, i) => 
       <option key={i}>{category.name}</option>
