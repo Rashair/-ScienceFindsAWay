@@ -17,7 +17,6 @@ class Home extends Component {
     .then(res => res.json())
     .then(
       (result) => {
-        console.log(result);
         this.setState({
           Info: result,
           isLoading: false,
@@ -40,25 +39,25 @@ class Home extends Component {
         <h1>Meeting info</h1>
         <h2>{this.state.Info.name}</h2>
         <h3>{this.state.Info.date}</h3>
-        <div class="pb-4">{this.state.Info.description}</div>
-        <div class="row">
-          <div class="col-sm-4">
+        <div className="pb-4">{this.state.Info.description}</div>
+        <div className="row">
+          <div className="col-sm-4">
             <h2>Participants</h2>
             <ul>
               {this.state.Info.participants.map((Participant, i) => {
-                  return (<li>{Participant.name} {Participant.surname}</li>);
+                  return (<li key={i}>{Participant.name} {Participant.surname}</li>);
               })}
             </ul>
           </div>
-          <div class="col-sm-4">
+          <div className="col-sm-4">
             <h2>Categories</h2>
             <ul>
               {this.state.Info.categories.map((Category, i) => {
-                  return (<li>{Category.name}</li>);
+                  return (<li key={i}>{Category.name}</li>);
               })}
             </ul>
           </div>
-          <div class="col-sm-4">
+          <div className="col-sm-4">
             <h2>Location</h2>
             <div><strong>{this.state.Info.place.name}</strong> @ {this.state.Info.place.address}</div>
             <div>{this.state.Info.place.description}</div>
