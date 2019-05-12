@@ -8,6 +8,7 @@ using ScienceFindsAWay.Models;
 
 namespace ScienceFindsAWay.Controllers
 {
+    [Route("api/[controller]")]
     public class CategoryController : Controller
     {
         private IConfiguration Configuration { get; }
