@@ -57,5 +57,11 @@ namespace ScienceFindsAWay.Controllers
 
             return Json(DbQuery(sql));
         }
+
+        [HttpGet("[action]")]
+        public IActionResult GetAllCategories()
+        {
+            return Json(DbQuery("SELECT * FROM Categories"));
+        }
     }
 }
