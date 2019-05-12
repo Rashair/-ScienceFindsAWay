@@ -1,7 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Runtime.Serialization.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using ScienceFindsAWay.Models;
 
 namespace ScienceFindsAWay.Controllers
@@ -16,7 +21,7 @@ namespace ScienceFindsAWay.Controllers
             Configuration = configuration;
         }
 
-        private IEnumerable<Skill> DbQuery(string sqlQuery)
+        public IEnumerable<Skill> DbQuery(string sqlQuery)
         {
             var places = new List<Skill>();
             using (SqlConnection connection = new SqlConnection(Configuration.GetConnectionString("SFAWHackBase")))
@@ -34,8 +39,14 @@ namespace ScienceFindsAWay.Controllers
                             var generalID = reader.GetInt32(reader.GetOrdinal("CategoryGeneral"));
                             var mediumID = reader.GetInt32(reader.GetOrdinal("CategoryMedium"));
                             var specificID = reader.GetInt32(reader.GetOrdinal("CategorySpecific"));
+
                             var con = new CategoryController(this.Configuration);
-                            places.Add(new Skill(index, name, con.GetCategoryName(generalID), con.GetCategoryName(mediumID), con.GetCategoryName(specificID)));
+                            var generalName = (con.GetCategoryName(generalID) as JsonResult).Value as string;
+                            var mediumName = (con.GetCategoryName(mediumID) as JsonResult).Value as string;
+                            var specificName = (con.GetCategoryName(specificID) as JsonResult).Value as string;
+
+                            places.Add(new Skill(index, name, generalName, mediumName, specificName));
+                            Debug.WriteLine(places.First().CategoryGeneral);
                         }
                     }
                 }

@@ -35,9 +35,13 @@ namespace ScienceFindsAWay.Controllers
                             var id = reader.GetInt32(reader.GetOrdinal("MeetingID"));
                             var name = reader.GetString(reader.GetOrdinal("Name"));
                             var date = reader.GetDateTime(reader.GetOrdinal("Date"));
-                            var place = placeControler.GetPlaceById(reader.GetInt32(reader.GetOrdinal("PlaceID")));
-                            var categories = categoryControler.GetCategoriesByMeetingId(id);
-                            var participants = userControler.GetUsersByMeetingId(id);
+                            var placeJson = placeControler.GetPlaceById(reader.GetInt32(reader.GetOrdinal("PlaceID")));
+                            var categoriesJson = categoryControler.GetCategoriesByMeetingId(id);
+                            var participantsJson = userControler.GetUsersByMeetingId(id);
+
+                            var place = (placeJson as JsonResult).Value as Place;
+                            var categories = (categoriesJson as JsonResult).Value as List<Category>;
+                            var participants = (participantsJson as JsonResult).Value as List<User>;
 
                             userList.Add(new Meeting(id,name,date,place,categories.ToList(),participants.ToList()));
                         }
