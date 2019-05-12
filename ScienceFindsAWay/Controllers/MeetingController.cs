@@ -57,7 +57,7 @@ namespace ScienceFindsAWay.Controllers
         [HttpPost("[action]")]
         public IActionResult AddMeeting([FromBody]Meeting meet)
         {
-            var sql = new StringBuilder($"BEGIN TRANSACTION; INSERT INTO Meetings (MeetingID,PlaceID,Date,Name,Description) VALUES ({meet.MeetingId}, {meet.Place.Index}, '{meet.Date.ToOADate()}', '{meet.Name}', '{meet.Description}');");
+            var sql = new StringBuilder($"BEGIN TRANSACTION; INSERT INTO Meetings (PlaceID,Date,Name,Description) VALUES ({meet.Place.Index}, '{meet.Date.ToOADate()}', '{meet.Name}', '{meet.Description}');");
             sql.Append("@ID=SELECT IDENT_CURRENT(‘Meetings’);");
             foreach (var user in meet.Participants)
             {
