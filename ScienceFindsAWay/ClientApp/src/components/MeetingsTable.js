@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import NiceDate from './NiceDate.js'
 
 class MeetingsTable extends Component {
     render() {
@@ -8,7 +9,7 @@ class MeetingsTable extends Component {
                 <tr key={i}>
                     <td><a href={`/MeetingInfo/${Meeting.meetingId}`}>{Meeting.name}</a></td>
                     <td>
-                        {date.toLocaleDateString()} {date.toLocaleTimeString().slice(0, 5)}
+                        <NiceDate date={date} />
                     </td>
                     <td>{Meeting.place.name}</td>
                 </tr> 

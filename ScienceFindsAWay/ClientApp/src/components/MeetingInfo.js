@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Spinner } from './Spinner';
+import NiceDate from './NiceDate.js';
 
 class MessageInfo extends Component {
   constructor(props) {
@@ -33,11 +34,13 @@ class MessageInfo extends Component {
       )
     }
 
+    var date = new Date(this.state.Info.date);
+
     return (
       <div>
         <h1>Meeting info</h1>
         <h2>{this.state.Info.name}</h2>
-        <h3>{this.state.Info.date}</h3>
+        <h3><NiceDate date={date} /></h3>
         <div className="pb-4">{this.state.Info.description}</div>
         <div className="row">
           <div className="col-sm-4">
