@@ -9,11 +9,14 @@ class MessageInfo extends Component {
     this.state = {
       Info: {},
       isLoading: true,
+      joined: false,
     };
   }
 
   componentDidMount() {
     // This method is called when the component is first added to the document
+    var user = JSON.parse(localStorage.getItem('user'));
+
     fetch(`api/meeting/getMeetingsById?id=${this.props.match.params.id}`)
     .then(res => res.json())
     .then(
@@ -21,6 +24,9 @@ class MessageInfo extends Component {
         this.setState({
           Info: result,
           isLoading: false,
+          joined: result.participants.find((Participant) => {
+            return Participant.userID == user.userID;
+          }) != null,
         });
       }
     )
@@ -36,6 +42,10 @@ class MessageInfo extends Component {
 
     var date = new Date(this.state.Info.date);
 
+    var butClass = "btn btn-" + (!this.state.joined ? "primary" : "danger");
+      console.log(butClass);
+    var butText = !this.state.joined ? "Join" : "Leave";
+
     return (
       <div>
         <h1>Meeting info</h1>
@@ -50,6 +60,7 @@ class MessageInfo extends Component {
                   return (<li key={i}><a href={`/UserInfo/${Participant.userID}`}>{Participant.name} {Participant.surname}</a></li>);
               })}
             </ul>
+            <button type="button" className={butClass}>{butText}</button>
           </div>
           <div className="col-sm-4">
             <h2>Categories</h2>
