@@ -64,5 +64,11 @@ namespace ScienceFindsAWay.Controllers
         {
             return Json(DbQuery("SELECT * FROM Categories"));
         }
+
+        [HttpGet("[action]")]
+        public IActionResult GetSlaveCategories(int id)
+        {
+            return Json(DbQuery($"SELECT c.* FROM Categories c join Table t on t.MasterId = c.CategoryID where c.CategoryID = {id}"));
+        }
     }
 }
