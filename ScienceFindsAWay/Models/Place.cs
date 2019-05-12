@@ -7,7 +7,7 @@ namespace ScienceFindsAWay.Models
 {
     public class Place
     {
-        public int Index { get; private set; }
+        public int Index { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }
