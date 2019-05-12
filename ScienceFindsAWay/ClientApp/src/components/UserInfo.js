@@ -42,7 +42,7 @@ class UserInfo extends Component {
         <h3>Skills</h3>
         <ul>
           {this.state.Info.skills.map((Skill, i) => {
-            return (<li key={i}>{Skill.categoryGeneral.name} / {Skill.categoryMedium.name} / {Skill.categorySpecific.name}</li>);
+            return (<li key={i}>{Skill.categoryGeneral} / {Skill.categoryMedium} / {Skill.categorySpecific}</li>);
           })}
         </ul>
       </div>
