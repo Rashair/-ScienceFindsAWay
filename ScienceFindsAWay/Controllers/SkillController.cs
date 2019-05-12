@@ -57,7 +57,6 @@ namespace ScienceFindsAWay.Controllers
         [HttpGet("[action]")]
         public IActionResult GetUserSkills(int id)
         {
-            var res = DbQuery($"SELECT * FROM Skill s JOIN UserSkillMerge usm ON s.SkillID=usm.SkillID WHERE usm.UserID={id}");
             return Json(DbQuery($"SELECT * FROM Skill s JOIN UserSkillMerge usm ON s.SkillID=usm.SkillID WHERE usm.UserID={id}"));
         }
     }
