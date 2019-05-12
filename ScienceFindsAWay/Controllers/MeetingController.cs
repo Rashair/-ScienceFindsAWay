@@ -63,7 +63,7 @@ namespace ScienceFindsAWay.Controllers
             {
                 sql.Append($"INSERT INTO MeetingUserMerge (MeetingID,UserID) VALUES (@ID, {user.UserID});");
             }
-            foreach(var category in meet.Categories)
+            foreach(var category in meet.Categories.Distinct())
             {
                 sql.Append($"INSERT INTO MeetingCategoryMerge (MeetingID,CategoryID) VALUES (@ID, {category.CategoryID});");
             }

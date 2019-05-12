@@ -75,5 +75,12 @@ namespace ScienceFindsAWay.Controllers
         {
             return Json(DbQuery($"SELECT c.* FROM Categories c join CategoryMasterSlave t on t.SlaveId = c.CategoryID where c.CategoryID = {id}"));
         }
+
+        [HttpGet("[action]")]
+        public IActionResult GetCategoriesByLevel(int level)
+        {
+            if (level < 1 || level > 3) throw (new ArgumentException());
+            return Json(DbQuery($"SELECT * FROM Categories where CategoryLevel = {level}"));
+        }
     }
 }
