@@ -84,7 +84,7 @@ namespace ScienceFindsAWay.Controllers
                 "FROM Meetings m "  +
                 $"WHERE m.MeetingID={id}";
 
-            return Json(DbQuery(sql));
+            return Json(DbQuery(sql).FirstOrDefault());
         }
     }
 }
