@@ -39,12 +39,13 @@ namespace ScienceFindsAWay.Controllers
                             var placeJson = placeControler.GetPlaceById(reader.GetInt32(reader.GetOrdinal("PlaceID")));
                             var categoriesJson = categoryControler.GetCategoriesByMeetingId(id);
                             var participantsJson = userControler.GetUsersByMeetingId(id);
+                            var description = reader.GetString(reader.GetOrdinal("Description"));
 
                             var place = (placeJson as JsonResult).Value as Place;
                             var categories = (categoriesJson as JsonResult).Value as List<Category>;
                             var participants = (participantsJson as JsonResult).Value as List<User>;
 
-                            userList.Add(new Meeting(id,name,date,place,categories.ToList(),participants.ToList()));
+                            userList.Add(new Meeting(id,name,date,place,categories.ToList(),participants.ToList(),description));
                         }
                     }
                 }
@@ -100,7 +101,7 @@ namespace ScienceFindsAWay.Controllers
                 "FROM Meetings m "  +
                 $"WHERE m.MeetingID={id}";
 
-            return Json(DbQuery(sql));
+            return Json(DbQuery(sql).FirstOrDefault());
         }
     }
 }
