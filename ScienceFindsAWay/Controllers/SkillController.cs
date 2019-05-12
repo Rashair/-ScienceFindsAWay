@@ -58,6 +58,8 @@ namespace ScienceFindsAWay.Controllers
         public IActionResult GetUserSkills(int id)
         {
             return Json(DbQuery($"SELECT * FROM Skill s JOIN UserSkillMerge usm ON s.SkillID=usm.SkillID WHERE usm.UserID={id}"));
+
         }
+        
     }
 }
