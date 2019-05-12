@@ -17,11 +17,11 @@ class AddMeeting extends Component {
       categories3: [],
       meeting: {
         name: "",
-        desc: "",
         date: {},
         place: {},
         categories: [],
         participants: [],
+        desc: "",
       },
       error: "",
     };
