@@ -46,8 +46,7 @@ class Home extends Component {
           <h1>Your Meetings</h1>
           {<MeetingsTable table={this.state.Meetings} />}
         </div>
-        <div class="col-sm-6">
-          Something will maybe be here…
+        <div className="col-sm-6">
         </div>
 
       </div>

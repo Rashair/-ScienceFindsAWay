@@ -12,23 +12,26 @@ class MeetingsTable extends Component {
                         <NiceDate date={date} />
                     </td>
                     <td>{Meeting.place.name}</td>
-                </tr> 
-            );}        
+                </tr>
+            );
+        }
         );
 
         return (
-            <div className="table-responsive"><table id="Meetings" className="table">
-                <thead>
-                    <tr>
-                        <th width="33.33%">Name</th>
-                        <th width="33.33%">Date</th>
-                        <th>Place</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.items}
-                </tbody>
-            </table></div>
+            <div className="table-responsive">
+                <table id="Meetings" className="table">
+                    <thead>
+                        <tr>
+                            <th width="33.33%">Name</th>
+                            <th width="33.33%">Date</th>
+                            <th>Place</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.items}
+                    </tbody>
+                </table>
+            </div>
         )
     }
 }

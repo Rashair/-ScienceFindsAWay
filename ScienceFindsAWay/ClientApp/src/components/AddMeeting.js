@@ -69,6 +69,7 @@ class AddMeeting extends Component {
     e.preventDefault();
     var cats = this.state.categories1.concat(this.state.categories2).concat(this.state.categories3);
     this.setState({ meeting: { ...this.state.meeting, categories: cats } });
+    
     console.log(this.state.meeting)
     const requestOptions = {
       method: 'POST',
