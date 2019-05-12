@@ -67,16 +67,23 @@ namespace ScienceFindsAWay.Controllers
                 sql.Append($"INSERT INTO MeetingCategoryMerge (MeetingID,CategoryID) VALUES ({meet.MeetingId}, {category.CategoryID});");
             }
 
-            using (SqlConnection connection = new SqlConnection(Configuration.GetConnectionString("SFAWHackBase")))
+            try
             {
-                connection.Open();
-                using (SqlCommand command = new SqlCommand(sql.ToString(), connection))
+                using (SqlConnection connection = new SqlConnection(Configuration.GetConnectionString("SFAWHackBase")))
                 {
-                    command.ExecuteNonQuery();                    
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(sql.ToString(), connection))
+                    {
+                        command.ExecuteNonQuery();
+                    }
                 }
             }
+            catch(SqlException)
+            {
+                return Json(false);
+            }
 
-            return null;
+            return Json(true);
         }
 
         [HttpGet("[action]")]
