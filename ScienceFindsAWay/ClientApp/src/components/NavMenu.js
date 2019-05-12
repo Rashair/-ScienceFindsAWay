@@ -25,8 +25,10 @@ export default class NavMenu extends React.Component {
       <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light >
           <Container>
-            <img alt="" src={this.logo} style={{ width: 50, padding: 5 }} />
-            <NavbarBrand tag={Link} to="/">ScienceFindsAWay</NavbarBrand>
+            <NavbarBrand tag={Link} to="/">
+              <img alt="" src={this.logo} style={{ width: 50, padding: 5 }} />
+              ScienceFindsAWay
+            </NavbarBrand>
             <NavbarToggler onClick={this.toggle} className="mr-2" />
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={this.state.isOpen} navbar>
             {this.props.user !== null &&
