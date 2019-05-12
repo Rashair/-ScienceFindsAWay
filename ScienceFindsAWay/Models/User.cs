@@ -19,7 +19,6 @@ namespace ScienceFindsAWay.Models
         internal string _password;
         public string PasswordSalt { get; protected set; }
         
-
         public User(string n, string s, string u, string f,string m, int uid, Skill[] sk, string username, string password, string passwordSalt)
         {
             Name = n;
