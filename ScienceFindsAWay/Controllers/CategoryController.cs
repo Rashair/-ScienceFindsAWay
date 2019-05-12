@@ -68,12 +68,12 @@ namespace ScienceFindsAWay.Controllers
         [HttpGet("[action]")]
         public IActionResult GetSlaveCategories(int id)
         {
-            return Json(DbQuery($"SELECT c.* FROM Categories c join CategoryMasterSlave t on t.MasterId = c.CategoryID where t.MasterID = {id}"));
+            return Json(DbQuery($"SELECT c.* FROM Categories c join CategoryMasterSlave t on t.SlaveID = c.CategoryID where t.MasterID = {id}"));
         }
         [HttpGet("[action]")]
         public IActionResult GetMasterCategories(int id)
         {
-            return Json(DbQuery($"SELECT c.* FROM Categories c join CategoryMasterSlave t on t.SlaveId = c.CategoryID where c.CategoryID = {id}"));
+            return Json(DbQuery($"SELECT c.* FROM Categories c join CategoryMasterSlave t on t.MasterId = c.CategoryID where t.SlaveId= {id}"));
         }
 
         [HttpGet("[action]")]
