@@ -7,3 +7,5 @@ A project for connecting university students, researches and teachers for the pu
 Estimated Finish Date - Never
 
 Also the code is ugly and has a free SQL injection inside (but I weren't the one who wrote it).
+
+**Don't judge us on this code.**
